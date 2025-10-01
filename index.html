@@ -21,6 +21,9 @@
 
     .button-container {
       margin: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     button {
@@ -56,6 +59,24 @@
     @keyframes fadeIn {
       from {opacity: 0; transform: translateY(10px);}
       to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Tambahan bio bawah */
+    .bio {
+      margin-top: 40px;
+      padding: 20px;
+      background: linear-gradient(45deg, #ff85a2, #ffb6c1);
+      color: white;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 -4px 8px rgba(0,0,0,0.2);
+    }
+    .bio h2 {
+      font-size: 28px;
+      margin: 0;
+    }
+    .bio p {
+      margin: 10px 0;
+      font-size: 16px;
     }
   </style>
 </head>
@@ -102,12 +123,24 @@
     <p>Isi naskah Kiko tulis di sini...</p>
   </div>
 
+  <!-- Bio Section -->
+  <div class="bio">
+    <h2>✨ Halo, Aku Akiko! 💖</h2>
+    <p>Web Developer & Bot Creator</p>
+    <p>Haii~ Aku suka bikin website lucu dan bot Telegram yang imut!  
+       Senang banget bisa berkenalan dengan kamu~</p>
+    <p>🎨 Coding | 🎨 Design | 🐱 Cats | 🍰 Baking</p>
+  </div>
+
   <script>
     function showNaskah(id) {
       let boxes = document.querySelectorAll('.naskah-box');
-      boxes.forEach(box => box.style.display = 'none'); // sembunyikan semua
-      document.getElementById(id).style.display = 'block'; // tampilkan yang dipilih
+      boxes.forEach(box => box.style.display = 'none'); 
+      document.getElementById(id).style.display = 'block'; 
     }
+  </script>
+</body>
+</html>    }
   </script>
 </body>
 </html>        .hobby {

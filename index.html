@@ -21,9 +21,9 @@
       background: linear-gradient(135deg,var(--bg1),var(--bg2));
       color:#111;
       display:flex;
-      align-items:flex-start;
-      justify-content:center;
-      padding:28px 16px;
+      flex-direction:column;
+      align-items:center;
+      padding:28px 16px 60px;
     }
 
     .container{
@@ -95,9 +95,8 @@
       line-height:1.65;
       font-size:16px;
       text-align:left;
-      /* each paragraph will have spacing -> looks like 1 blank line between */
     }
-    .script p{ margin: 0 0 12px; } /* 12px = gap (visual "1 baris") */
+    .script p{ margin: 0 0 12px; }
 
     /* fade-in animation */
     .fade-in {
@@ -108,11 +107,26 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* perkenalan Akiko */
+    .profile{
+      margin-top:40px;
+      text-align:center;
+      color:#fff;
+      font-size:15px;
+      font-weight:500;
+      animation: idleGlow 3s ease-in-out infinite;
+    }
+    @keyframes idleGlow {
+      0%,100% { text-shadow: 0 0 4px rgba(255,255,255,0.6); transform: translateY(0); }
+      50% { text-shadow: 0 0 12px rgba(255,255,255,1); transform: translateY(-3px); }
+    }
+
     /* responsive */
     @media (max-width:520px){
       header h1{ font-size:24px }
       .btn{ font-size:14px; padding:10px 12px }
       .naskah-card{ padding:16px }
+      .profile{ font-size:14px }
     }
   </style>
 </head>
@@ -137,10 +151,15 @@
       <h2>Pilih naskah dari tombol di atas</h2>
       <div class="script">Naskah akan muncul di sini ketika tombol dipencet.</div>
     </main>
+
+    <!-- Perkenalan Akiko -->
+    <div class="profile">
+      <p><b>Gw Akiko</b> — suka coding, bikin web, dan develop bot. 🚀</p>
+    </div>
   </div>
 
   <script>
-    // DATA: isi naskah — edit bebas di sini
+    // DATA: isi naskah
     const scripts = {
       daaniys: {
         title: "Naskah Daaniys ❤️",
@@ -225,45 +244,28 @@
     const btns = Array.from(document.querySelectorAll('.btn'));
     const naskahEl = document.getElementById('naskah');
 
-    // show function with smooth fade-in
     function showNaskah(key, btnEl){
       const s = scripts[key];
       if(!s) return;
 
-      // active button
       btns.forEach(b => b.classList.remove('active'));
       if(btnEl) btnEl.classList.add('active');
 
-      // render content (innerHTML because we intentionally include <p> and <b>)
-      // apply fade animation: remove then force reflow then add
       const titleHTML = `<h2>${s.title}</h2>`;
       const bodyHTML  = `<div class="script">${s.text}</div>`;
 
-      // remove existing fade class (if any)
       naskahEl.classList.remove('fade-in');
-
-      // set innerHTML (replace)
       naskahEl.innerHTML = titleHTML + bodyHTML;
-
-      // force reflow so animation restarts reliably
       void naskahEl.offsetWidth;
-
-      // add fade-in
       naskahEl.classList.add('fade-in');
-
-      // ensure focus for accessibility
-      naskahEl.focus?.();
-      // smooth scroll into view (mobile friendly)
       naskahEl.scrollIntoView({behavior:'smooth', block:'start'});
     }
 
-    // attach click events
     btns.forEach(b => {
       const key = b.dataset.key;
       b.addEventListener('click', ()=> showNaskah(key, b));
     });
 
-    // optional: show default first naskah on load
     document.addEventListener('DOMContentLoaded', ()=>{
       const first = btns[0];
       if(first) showNaskah(first.dataset.key, first);

@@ -228,6 +228,85 @@
 
 <p><b>Kalila:</b> Romantic films feel better in the dark room.</p>
 
+<p><b>Nofa:</b> Horror movies are scarier when everyone screams together.</p>`
+      },
+
+      lain: {
+        title: "Naskah Aylah",
+        text: `
+<p><b>Kalila:</b> The sky looks beautiful today.</p>
+
+<p><b>Syifa:</b> True, it’s so calming.</p>
+
+<p><b>Nofa:</b> Perfect weather for a walk.</p>
+
+<p><b>Daaniys ❤️:</b> Let’s go then!</p>`
+      }
+    };
+
+    // DOM refs
+    const btns = Array.from(document.querySelectorAll('.btn'));
+    const naskahEl = document.getElementById('naskah');
+
+    function showNaskah(key, btnEl){
+      const s = scripts[key];
+      if(!s) return;
+
+      btns.forEach(b => b.classList.remove('active'));
+      if(btnEl) btnEl.classList.add('active');
+
+      const titleHTML = `<h2>${s.title}</h2>`;
+      const bodyHTML  = `<div class="script">${s.text}</div>`;
+
+      naskahEl.classList.remove('fade-in');
+      naskahEl.innerHTML = titleHTML + bodyHTML;
+      
+      // Force reflow untuk restart animasi
+      void naskahEl.offsetWidth;
+      
+      naskahEl.classList.add('fade-in');
+      naskahEl.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // Event listeners untuk tombol
+    btns.forEach(b => {
+      const key = b.dataset.key;
+      b.addEventListener('click', () => showNaskah(key, b));
+    });
+
+    // Tampilkan naskah pertama saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', () => {
+      const first = btns[0];
+      if(first) showNaskah(first.dataset.key, first);
+    });
+  </script>
+</body>
+</html>injection.</p>
+
+<p><b>Syifa:</b> I'll try it. As a patient, it doesn't seem to hurt. I'm used to it.</p>
+
+<p><b>Danis:</b> I agree with you. I'll take turns being your patient later.</p>
+
+<p><b>Aylah:</b> I agree with Syifa and Kalila. It's important to try it often to get used to the injection.</p>
+
+<p><b>Kharis:</b> But I disagree. The blood draw depends on the size of the syringe.</p>
+
+<p><b>Nova:</b> I agree with Kharis. Because if you're not used to injections, it can be very painful if the syringe is 5cc.</p>`
+      },
+
+      nofa: {
+        title: "Naskah Nofa",
+        text: `
+<p><b>Aylah:</b> I love going to the cinema, it makes movies exciting.</p>
+
+<p><b>Daaniys ❤️:</b> I prefer watching at home, it’s cheaper.</p>
+
+<p><b>Syifa:</b> I think the theater atmosphere is the best.</p>
+
+<p><b>Kharis:</b> Action movies are more thrilling there.</p>
+
+<p><b>Kalila:</b> Romantic films feel better in the dark room.</p>
+
 <p><b>Nofa:</b> Horror movies are scarier when everyone screams together.</p>
       },
 

@@ -1,225 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kumpulan Naskah</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kumpulan Naskah Bahasa Inggris</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #f9d423, #ff4e50);
-      margin: 0;
-      padding: 0;
-      text-align: center;
+    :root{
+      --bg1: #f9d423;
+      --bg2: #ff4e50;
+      --accent: #ffd966;
+      --card: #ffffff;
+      --muted: #555;
     }
 
-    h1 {
-      color: white;
-      padding: 20px;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    *{box-sizing: border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:#222;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
     }
 
-    .button-container {
-      margin: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+    .wrap{
+      width:100%;
+      max-width:980px;
+      padding:28px 20px 80px;
     }
 
-    button {
-      background: white;
-      border: none;
-      padding: 15px 25px;
-      margin: 10px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: bold;
-      transition: transform 0.2s, background 0.3s;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    header{
+      text-align:center;
+      margin-bottom:18px;
+    }
+    header h1{
+      margin:0;
+      color:#fff;
+      font-size:34px;
+      text-shadow:0 6px 18px rgba(0,0,0,0.25);
+      line-height:1.05;
+    }
+    header p.lead{
+      margin:10px 0 0;
+      color:rgba(255,255,255,0.95);
+      font-weight:500;
+      opacity:0.95;
     }
 
-    button:hover {
-      background: #ffe66d;
-      transform: scale(1.05);
+    .button-container{
+      margin-top:20px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap:16px;
+      align-items:center;
     }
 
-    .naskah-box {
-      display: none;
-      margin: 20px auto;
-      padding: 20px;
-      max-width: 700px;
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-      text-align: left;
-      animation: fadeIn 0.4s ease-in-out;
+    .btn{
+      background:var(--card);
+      border:none;
+      border-radius:14px;
+      padding:14px 18px;
+      font-weight:600;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.16);
+      cursor:pointer;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+      text-align:center;
+      font-size:16px;
+    }
+    .btn:hover{ transform: translateY(-4px); box-shadow:0 14px 30px rgba(0,0,0,0.18); }
+    .btn.active{
+      background: linear-gradient(90deg,#fff7d1,#ffecb3);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow:0 18px 36px rgba(0,0,0,0.18);
     }
 
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(10px);}
-      to {opacity: 1; transform: translateY(0);}
+    /* area naskah */
+    .naskah-area{
+      margin-top:26px;
+      background:var(--card);
+      border-radius:18px;
+      padding:22px;
+      box-shadow: 0 16px 34px rgba(0,0,0,0.18);
+      max-width:900px;
+    }
+    .naskah-area h2{
+      margin:0 0 10px;
+      font-size:22px;
+      color:#111;
+    }
+    .naskah-area .script{
+      margin:0;
+      color:var(--muted);
+      white-space:pre-wrap; /* important to keep line breaks */
+      line-height:1.6;
+      font-size:15.5px;
     }
 
-    /* Tambahan bio bawah */
-    .bio {
-      margin-top: 40px;
-      padding: 20px;
-      background: linear-gradient(45deg, #ff85a2, #ffb6c1);
-      color: white;
-      border-radius: 20px 20px 0 0;
-      box-shadow: 0 -4px 8px rgba(0,0,0,0.2);
+    /* bio footer */
+    .bio{
+      margin-top:28px;
+      width:100%;
+      max-width:980px;
+      border-radius:18px;
+      overflow:hidden;
     }
-    .bio h2 {
-      font-size: 28px;
-      margin: 0;
+    .bio .bio-card{
+      padding:28px;
+      background:linear-gradient(180deg,#ff9fb2,#ffd0e0);
+      color:#fff;
+      text-align:center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
     }
-    .bio p {
-      margin: 10px 0;
-      font-size: 16px;
+    .bio h3{
+      margin:0 0 6px;
+      font-size:30px;
+      text-shadow:0 6px 14px rgba(0,0,0,0.12);
+    }
+    .bio p{ margin:6px 0; color:rgba(255,255,255,0.95) }
+
+    /* responsive tweaks */
+    @media (max-width:520px){
+      header h1{ font-size:26px }
+      .btn{ font-size:15px; padding:12px 14px; border-radius:12px }
+      .naskah-area{ padding:18px }
     }
   </style>
 </head>
 <body>
-  <h1>📖 Kumpulan Naskah Bahasa Inggris</h1>
+  <div class="wrap">
+    <header>
+      <h1>📖 Kumpulan Naskah Bahasa Inggris</h1>
+      <p class="lead">Pilih naskah di bawah, lalu baca atau salin. Simple & responsive.</p>
+    </header>
 
-  <div class="button-container">
-    <button onclick="showNaskah('daaniys')">Naskah Daaniys</button>
-    <button onclick="showNaskah('kharis')">Naskah Kharis</button>
-    <button onclick="showNaskah('alya')">Naskah Alya</button>
-    <button onclick="showNaskah('bintang')">Naskah Bintang</button>
-    <button onclick="showNaskah('cipa')">Naskah Cipa</button>
-    <button onclick="showNaskah('kiko')">Naskah Kiko</button>
-  </div>
+    <div class="button-container" id="buttons">
+      <button class="btn" data-key="daaniys">Naskah Daaniys</button>
+      <button class="btn" data-key="kharis">Naskah Kharis</button>
+      <button class="btn" data-key="alya">Naskah Alya</button>
+      <button class="btn" data-key="bintang">Naskah Bintang</button>
+      <button class="btn" data-key="cipa">Naskah Cipa</button>
+      <button class="btn" data-key="kiko">Naskah Kiko</button>
+    </div>
 
-  <!-- Tempat tampil naskah -->
-  <div id="daaniys" class="naskah-box">
-    <h2>Naskah Daaniys</h2>
-    <p>Isi naskah Daaniys tulis di sini...</p>
-  </div>
+    <main class="naskah-area" id="naskah">
+      <h2>Pilih naskah dari tombol di atas</h2>
+      <p class="script">Naskah akan muncul di sini ketika tombol dipencet.</p>
+    </main>
 
-  <div id="kharis" class="naskah-box">
-    <h2>Naskah Kharis</h2>
-    <p>Isi naskah Kharis tulis di sini...</p>
-  </div>
-
-  <div id="alya" class="naskah-box">
-    <h2>Naskah Alya</h2>
-    <p>Isi naskah Alya tulis di sini...</p>
-  </div>
-
-  <div id="bintang" class="naskah-box">
-    <h2>Naskah Bintang</h2>
-    <p>Isi naskah Bintang tulis di sini...</p>
-  </div>
-
-  <div id="cipa" class="naskah-box">
-    <h2>Naskah Cipa</h2>
-    <p>Isi naskah Cipa tulis di sini...</p>
-  </div>
-
-  <div id="kiko" class="naskah-box">
-    <h2>Naskah Kiko</h2>
-    <p>Isi naskah Kiko tulis di sini...</p>
-  </div>
-
-  <!-- Bio Section -->
-  <div class="bio">
-    <h2>✨ Halo, Aku Akiko! 💖</h2>
-    <p>Web Developer & Bot Creator</p>
-    <p>Haii~ Aku suka bikin website lucu dan bot Telegram yang imut!  
-       Senang banget bisa berkenalan dengan kamu~</p>
-    <p>🎨 Coding | 🎨 Design | 🐱 Cats | 🍰 Baking</p>
+    <section class="bio" aria-label="bio">
+      <div class="bio-card">
+        <h3>✨ Halo, Aku Akiko! 💖</h3>
+        <p><strong>Web Developer & Bot Creator</strong></p>
+        <p>Haii~ Aku suka bikin website lucu dan bot Telegram yang imut! Senang banget bisa berkenalan dengan kamu~</p>
+        <p>💻 Coding | 🎨 Design | 🐱 Cats | 🍰 Baking</p>
+      </div>
+    </section>
   </div>
 
   <script>
-    function showNaskah(id) {
-      let boxes = document.querySelectorAll('.naskah-box');
-      boxes.forEach(box => box.style.display = 'none'); 
-      document.getElementById(id).style.display = 'block'; 
+    // Isi naskah — lo bisa edit langsung di sini
+    const scripts = {
+      daaniys: {
+        title: "Naskah Daaniys",
+        text: `This is a placeholder for Naskah Daaniys.
+You can paste your full script here.`
+      },
+      kharis: {
+        title: "Naskah Kharis",
+        text: `This is a placeholder for Naskah Kharis.
+Replace with the real content.`
+      },
+      alya: {
+        title: "Naskah Alya",
+        text: `This is a placeholder for Naskah Alya.`
+      },
+      bintang: {
+        title: "Naskah Bintang",
+        text: `This is a placeholder for Naskah Bintang.`
+      },
+      cipa: {
+        title: "Naskah Cipa",
+        text: `Syifa: Will the blood draw hurt? I think so.
+Kalila: I agree. It might hurt, but we'll get used to the injection.
+Syifa: I'll try it. As a patient, it doesn't seem to hurt. I'm used to it.
+Danis: I agree with you. I'll take turns being your patient later.
+Aylah: I agree with Syifa and Kalila. It's important to try it often to get used to the injection.
+Kharis: But I disagree. The blood draw depends on the size of the syringe.
+Nova: I agree with Kharis. Because if you're not used to injections, it can be very painful if the syringe is 5cc.`
+      },
+      kiko: {
+        title: "Naskah Kiko",
+        text: `Isi naskah Kiko tulis di sini...`
+      }
+    };
+
+    // helpers
+    const btns = document.querySelectorAll('.btn');
+    const area = document.getElementById('naskah');
+
+    function showNaskah(key, btnEl){
+      const s = scripts[key];
+      if(!s) return;
+      // aktifin style tombol
+      btns.forEach(b=>b.classList.remove('active'));
+      if(btnEl) btnEl.classList.add('active');
+
+      // isi area
+      area.innerHTML = `
+        <h2>${escapeHtml(s.title)}</h2>
+        <p class="script">${escapeHtml(s.text)}</p>
+      `;
+      // scroll to area (smooth)
+      area.scrollIntoView({behavior:'smooth', block:'start'});
     }
+
+    // attach events
+    btns.forEach(b=>{
+      b.addEventListener('click',()=> showNaskah(b.dataset.key, b));
+    });
+
+    // utility to avoid accidental HTML injection
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#39;')
+        .replaceAll('\n','\n');
+    }
+
+    // optional: show first by default
+    // showNaskah('kiko', document.querySelector('[data-key="kiko"]'));
   </script>
 </body>
-</html>    }
-  </script>
-</body>
-</html>        .hobby {
-            background: #ffebf0;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            color: #ff6b93;
-            border: 2px solid #ffc1d2;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 25px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .social-link {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(45deg, #ff85a2, #ffb6c1);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            color: white;
-            font-size: 18px;
-            transition: transform 0.3s ease;
-            border: 2px solid white;
-        }
-
-        .social-link:hover {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .floating {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .heart {
-            color: #ff6b93;
-            font-size: 20px;
-            margin: 0 5px;
-            animation: heartbeat 1.5s ease-in-out infinite;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-    </style>
-</head>
-<body>
-    <div class="container floating">
-        <div class="profile-pic">
-            👧
-        </div>
-        
-        <h1>Halo, Aku Akiko! <span class="heart">💖</span></h1>
-        <div class="subtitle">Web Developer & Bot Creator</div>
-        
-        <div class="bio">
-            <p>Haii~ Aku suka bikin website lucu dan bot Telegram yang imut! Senang banget bisa berkenalan dengan kamu~</p>
-        </div>
-
-        <div class="hobby-list">
-            <span class="hobby">💻 Coding</span>
-            <span class="hobby">🎨 Design</span>
-            <span class="hobby">🐱 Cats</span>
-            <span class="hobby">🍰 Baking</span>
+</html>            <span class="hobby">🍰 Baking</span>
         </div>
 
         <div class="social-links">

@@ -99,10 +99,10 @@
     .naskah-area .script{
       margin:0;
       color:var(--muted);
-      white-space:pre-wrap; /* important to keep line breaks */
       line-height:1.6;
       font-size:15.5px;
     }
+    .naskah-area .script p{ margin: 10px 0 }
 
     /* bio footer */
     .bio{
@@ -142,12 +142,12 @@
     </header>
 
     <div class="button-container" id="buttons">
-      <button class="btn" data-key="Daaniys❤️">Naskah Daaniys</button>
-      <button class="btn" data-key="Kharis">Naskah Kharis</button>
-      <button class="btn" data-key="Alyah">Naskah Alya</button>
-      <button class="btn" data-key="Kalila">Naskah Bintang</button>
-      <button class="btn" data-key="Syifa">Naskah Cipa</button>
-      <button class="btn" data-key="Nofa">Naskah Kiko</button>
+      <button class="btn" data-key="daaniys">Naskah Daaniys</button>
+      <button class="btn" data-key="kharis">Naskah Kharis</button>
+      <button class="btn" data-key="alya">Naskah Alya</button>
+      <button class="btn" data-key="bintang">Naskah Bintang</button>
+      <button class="btn" data-key="cipa">Naskah Cipa</button>
+      <button class="btn" data-key="kiko">Naskah Kiko</button>
     </div>
 
     <main class="naskah-area" id="naskah">
@@ -166,17 +166,74 @@
   </div>
 
   <script>
-    // Isi naskah — lo bisa edit langsung di sini
+    // Isi naskah
     const scripts = {
       daaniys: {
-        title: "Naskah Daaniys❤️",
-        text: `This is a placeholder for Naskah Daaniys.
-You can paste your full script here.`
+        title: "Naskah Daaniys ❤️",
+        text: `<p><b>Daaniys:</b> This is a placeholder for Daaniys' script.</p>`
       },
       kharis: {
         title: "Naskah Kharis",
-        text: `This is a placeholder for Naskah Kharis.
-Replace with the real content.`
+        text: `<p><b>Kharis:</b> This is a placeholder for Kharis' script.</p>`
+      },
+      alya: {
+        title: "Naskah Alya",
+        text: `<p><b>Alya:</b> This is a placeholder for Alya's script.</p>`
+      },
+      bintang: {
+        title: "Naskah Bintang",
+        text: `<p><b>Bintang:</b> This is a placeholder for Bintang's script.</p>`
+      },
+      cipa: {
+        title: "Naskah Cipa",
+        text: `
+<p><b>Syifa:</b> Will the blood draw hurt? I think so.</p>
+
+<p><b>Kalila:</b> I agree. It might hurt, but we'll get used to the injection.</p>
+
+<p><b>Syifa:</b> I'll try it. As a patient, it doesn't seem to hurt. I'm used to it.</p>
+
+<p><b>Danis:</b> I agree with you. I'll take turns being your patient later.</p>
+
+<p><b>Aylah:</b> I agree with Syifa and Kalila. It's important to try it often to get used to the injection.</p>
+
+<p><b>Kharis:</b> But I disagree. The blood draw depends on the size of the syringe.</p>
+
+<p><b>Nova:</b> I agree with Kharis. Because if you're not used to injections, it can be very painful if the syringe is 5cc.</p>
+        `
+      },
+      kiko: {
+        title: "Naskah Kiko",
+        text: `<p><b>Kiko:</b> Isi naskah Kiko tulis di sini...</p>`
+      }
+    };
+
+    // Tombol & area
+    const btns = document.querySelectorAll('.btn');
+    const area = document.getElementById('naskah');
+
+    function showNaskah(key, btnEl){
+      const s = scripts[key];
+      if(!s) return;
+      // aktifin style tombol
+      btns.forEach(b=>b.classList.remove('active'));
+      if(btnEl) btnEl.classList.add('active');
+
+      // isi area
+      area.innerHTML = `
+        <h2>${s.title}</h2>
+        <div class="script">${s.text}</div>
+      `;
+      area.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // event klik
+    btns.forEach(b=>{
+      b.addEventListener('click',()=> showNaskah(b.dataset.key, b));
+    });
+  </script>
+</body>
+</html> real content.`
       },
       alya: {
         title: "Naskah Alyah",

@@ -1,40 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Kumpulan Naskah Bahasa Inggris</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root{
       --bg1: #f9d423;
       --bg2: #ff4e50;
-      --accent: #ffd966;
       --card: #ffffff;
-      --muted: #555;
+      --muted: #444;
+      --accent: #ffd966;
     }
-
-    *{box-sizing: border-box}
-    html,body{height:100%}
+    *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(135deg,var(--bg1),var(--bg2));
-      color:#222;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
       min-height:100vh;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:#111;
       display:flex;
-      flex-direction:column;
-      align-items:center;
+      align-items:flex-start;
+      justify-content:center;
+      padding:28px 16px;
     }
 
-    .wrap{
+    .container{
       width:100%;
       max-width:980px;
-      padding:28px 20px 80px;
     }
 
     header{
@@ -45,210 +39,149 @@
       margin:0;
       color:#fff;
       font-size:34px;
-      text-shadow:0 6px 18px rgba(0,0,0,0.25);
+      text-shadow: 0 6px 18px rgba(0,0,0,0.2);
       line-height:1.05;
     }
     header p.lead{
-      margin:10px 0 0;
+      margin:8px 0 0;
       color:rgba(255,255,255,0.95);
       font-weight:500;
-      opacity:0.95;
     }
 
-    .button-container{
-      margin-top:20px;
+    /* tombol grid */
+    .buttons{
+      margin-top:18px;
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap:16px;
+      grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+      gap:12px;
       align-items:center;
     }
-
-    .btn{
+    .btn {
       background:var(--card);
-      border:none;
-      border-radius:14px;
-      padding:14px 18px;
+      border:0;
+      padding:12px 14px;
+      border-radius:12px;
       font-weight:600;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.16);
       cursor:pointer;
-      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.14);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
       text-align:center;
-      font-size:16px;
+      font-size:15px;
     }
-    .btn:hover{ transform: translateY(-4px); box-shadow:0 14px 30px rgba(0,0,0,0.18); }
+    .btn:hover{ transform: translateY(-4px); box-shadow:0 14px 30px rgba(0,0,0,0.16); }
     .btn.active{
       background: linear-gradient(90deg,#fff7d1,#ffecb3);
       transform: translateY(-6px) scale(1.02);
       box-shadow:0 18px 36px rgba(0,0,0,0.18);
     }
 
-    /* area naskah */
-    .naskah-area{
-      margin-top:26px;
+    /* kartu naskah */
+    .naskah-card{
+      margin-top:22px;
       background:var(--card);
-      border-radius:18px;
+      border-radius:16px;
       padding:22px;
-      box-shadow: 0 16px 34px rgba(0,0,0,0.18);
-      max-width:900px;
-    }
-    .naskah-area h2{
-      margin:0 0 10px;
-      font-size:22px;
-      color:#111;
-    }
-    .naskah-area .script{
-      margin:0;
-      color:var(--muted);
-      line-height:1.6;
-      font-size:15.5px;
-    }
-    .naskah-area .script p{ margin: 10px 0 }
-
-    /* bio footer */
-    .bio{
-      margin-top:28px;
-      width:100%;
-      max-width:980px;
-      border-radius:18px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.14);
       overflow:hidden;
     }
-    .bio .bio-card{
-      padding:28px;
-      background:linear-gradient(180deg,#ff9fb2,#ffd0e0);
-      color:#fff;
-      text-align:center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    .naskah-card h2{
+      margin:0 0 8px;
+      font-size:20px;
+      color:#111;
     }
-    .bio h3{
-      margin:0 0 6px;
-      font-size:30px;
-      text-shadow:0 6px 14px rgba(0,0,0,0.12);
-    }
-    .bio p{ margin:6px 0; color:rgba(255,255,255,0.95) }
 
-    /* responsive tweaks */
+    .script{
+      color:var(--muted);
+      line-height:1.65;
+      font-size:16px;
+      text-align:left;
+      /* each paragraph will have spacing -> looks like 1 blank line between */
+    }
+    .script p{ margin: 0 0 12px; } /* 12px = gap (visual "1 baris") */
+
+    /* fade-in animation */
+    .fade-in {
+      animation: fadeIn .38s ease both;
+    }
+    @keyframes fadeIn{
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* responsive */
     @media (max-width:520px){
-      header h1{ font-size:26px }
-      .btn{ font-size:15px; padding:12px 14px; border-radius:12px }
-      .naskah-area{ padding:18px }
+      header h1{ font-size:24px }
+      .btn{ font-size:14px; padding:10px 12px }
+      .naskah-card{ padding:16px }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <div class="container">
     <header>
       <h1>📖 Kumpulan Naskah Bahasa Inggris</h1>
-      <p class="lead">Pilih naskah di bawah, lalu baca atau salin. Simple & responsive.</p>
+      <p class="lead">Klik tombol untuk menampilkan naskah. Nama sudah tebal (bold).</p>
     </header>
 
-    <div class="button-container" id="buttons">
-      <button class="btn" data-key="daaniys">Naskah Daaniys</button>
-      <button class="btn" data-key="kharis">Naskah Kharis</button>
-      <button class="btn" data-key="alya">Naskah Alya</button>
-      <button class="btn" data-key="bintang">Naskah Bintang</button>
-      <button class="btn" data-key="cipa">Naskah Cipa</button>
-      <button class="btn" data-key="kiko">Naskah Kiko</button>
+    <div class="buttons" role="tablist" aria-label="Pilihan naskah">
+      <button class="btn" data-key="daaniys" aria-controls="naskah" role="tab">Naskah Daaniys ❤️</button>
+      <button class="btn" data-key="kharis" aria-controls="naskah" role="tab">Naskah Kharis</button>
+      <button class="btn" data-key="kalila" aria-controls="naskah" role="tab">Naskah Kalila</button>
+      <button class="btn" data-key="syifa" aria-controls="naskah" role="tab">Naskah Syifa</button>
+      <button class="btn" data-key="nofa" aria-controls="naskah" role="tab">Naskah Nofa</button>
+      <button class="btn" data-key="lain" aria-controls="naskah" role="tab">Naskah Lain</button>
     </div>
 
-    <main class="naskah-area" id="naskah">
+    <!-- area naskah tunggal -->
+    <main id="naskah" class="naskah-card" role="region" aria-live="polite">
       <h2>Pilih naskah dari tombol di atas</h2>
-      <p class="script">Naskah akan muncul di sini ketika tombol dipencet.</p>
+      <div class="script">Naskah akan muncul di sini ketika tombol dipencet.</div>
     </main>
-
-    <section class="bio" aria-label="bio">
-      <div class="bio-card">
-        <h3>✨ Halo, Saya Akiko! 😊</h3>
-        <p><strong>Web Developer & Bot Creator</strong></p>
-        <p>Haii~ Aku suka bikin website lucu dan bot Telegram yang imut! Senang banget bisa berkenalan dengan kamu~</p>
-        <p>💻 Coding | 🎨 Design | 🐱 Cats</p>
-      </div>
-    </section>
   </div>
 
   <script>
-<script>
-  // Isi naskah
-  const scripts = {
-    daaniys: {
-      title: "Naskah Daaniys ❤️",
-      text: `<p><b>Daaniys:</b> This is a placeholder for Daaniys' script.</p>`
-    },
-    kharis: {
-      title: "Naskah Kharis",
-      text: `<p><b>Kharis:</b> This is a placeholder for Kharis' script.</p>`
-    },
-    alya: {
-      title: "Naskah Alya",
-      text: `<p><b>Alya:</b> This is a placeholder for Alya's script.</p>`
-    },
-    bintang: {
-      title: "Naskah Bintang",
-      text: `<p><b>Bintang:</b> This is a placeholder for Bintang's script.</p>`
-    },
-    cipa: {
-      title: "Naskah Cipa",
-      text: `
-<p><b>Syifa:</b> Will the blood draw hurt? I think so.</p>
+    // DATA: isi naskah — edit bebas di sini
+    const scripts = {
+      daaniys: {
+        title: "Naskah Daaniys ❤️",
+        text: `
+<p><b>Daaniys ❤️:</b> Hello, how are you?</p>
 
-<p><b>Kalila:</b> I agree. It might hurt, but we'll get used to the injection.</p>
+<p><b>Kalila:</b> I’m good, thanks. And you?</p>
 
-<p><b>Syifa:</b> I'll try it. As a patient, it doesn't seem to hurt. I'm used to it.</p>
+<p><b>Syifa:</b> I’m fine too.</p>
 
-<p><b>Danis:</b> I agree with you. I'll take turns being your patient later.</p>
-
-<p><b>Aylah:</b> I agree with Syifa and Kalila. It's important to try it often to get used to the injection.</p>
-
-<p><b>Kharis:</b> But I disagree. The blood draw depends on the size of the syringe.</p>
-
-<p><b>Nova:</b> I agree with Kharis. Because if you're not used to injections, it can be very painful if the syringe is 5cc.</p>
-      `
-    },
-    kiko: {
-      title: "Naskah Kiko",
-      text: `<p><b>Kiko:</b> Isi naskah Kiko tulis di sini...</p>`
-    }
-  };
-
-  // Tombol & area
-  const btns = document.querySelectorAll('.btn');
-  const area = document.getElementById('naskah');
-
-  function showNaskah(key, btnEl){
-    const s = scripts[key];
-    if(!s) return;
-
-    // aktifin style tombol
-    btns.forEach(b=>b.classList.remove('active'));
-    if(btnEl) btnEl.classList.add('active');
-
-    // isi area (langsung pakai innerHTML)
-    area.innerHTML = `
-      <h2>${s.title}</h2>
-      <div class="script">${s.text}</div>
-    `;
-
-    area.scrollIntoView({behavior:'smooth', block:'start'});
-  }
-
-  // event klik
-  btns.forEach(b=>{
-    b.addEventListener('click',()=> showNaskah(b.dataset.key, b));
-  });
-</script>
-</body>
-</html> real content.`
+<p><b>Nofa:</b> Nice to hear that!</p>`
       },
-      alya: {
-        title: "Naskah Alyah",
-        text: `This is a placeholder for Naskah Alya.`
+
+      kharis: {
+        title: "Naskah Kharis",
+        text: `
+<p><b>Kharis:</b> What are we going to eat today?</p>
+
+<p><b>Kalila:</b> Maybe some noodles?</p>
+
+<p><b>Syifa:</b> Sounds delicious!</p>
+
+<p><b>Nofa:</b> Let’s go then!</p>`
       },
-      bintang: {
+
+      kalila: {
         title: "Naskah Kalila",
-        text: `This is a placeholder for Naskah Bintang.`
+        text: `
+<p><b>Kalila:</b> Did you finish the homework?</p>
+
+<p><b>Daaniys ❤️:</b> Almost, just a few left.</p>
+
+<p><b>Syifa:</b> I can help if you want.</p>
+
+<p><b>Nofa:</b> Same here!</p>`
       },
-      cipa: {
+
+      syifa: {
         title: "Naskah Syifa",
-        text: `<p><b>Syifa:</b> Will the blood draw hurt? I think so.</p>
+        text: `
+<p><b>Syifa:</b> Will the blood draw hurt? I think so.</p>
 
 <p><b>Kalila:</b> I agree. It might hurt, but we'll get used to the injection.</p>
 
@@ -262,61 +195,79 @@
 
 <p><b>Nova:</b> I agree with Kharis. Because if you're not used to injections, it can be very painful if the syringe is 5cc.</p>`
       },
-      kiko: {
+
+      nofa: {
         title: "Naskah Nofa",
-        text: `Isi naskah Kiko tulis di sini...`
+        text: `
+<p><b>Nofa:</b> Let’s practice English together.</p>
+
+<p><b>Kalila:</b> Good idea!</p>
+
+<p><b>Syifa:</b> Yes, let’s improve our skills.</p>
+
+<p><b>Daaniys ❤️:</b> I’m in too!</p>`
+      },
+
+      lain: {
+        title: "Naskah Lain",
+        text: `
+<p><b>Kalila:</b> The sky looks beautiful today.</p>
+
+<p><b>Syifa:</b> True, it’s so calming.</p>
+
+<p><b>Nofa:</b> Perfect weather for a walk.</p>
+
+<p><b>Daaniys ❤️:</b> Let’s go then!</p>`
       }
     };
 
-    // helpers
-    const btns = document.querySelectorAll('.btn');
-    const area = document.getElementById('naskah');
+    // DOM refs
+    const btns = Array.from(document.querySelectorAll('.btn'));
+    const naskahEl = document.getElementById('naskah');
 
+    // show function with smooth fade-in
     function showNaskah(key, btnEl){
       const s = scripts[key];
       if(!s) return;
-      // aktifin style tombol
-      btns.forEach(b=>b.classList.remove('active'));
+
+      // active button
+      btns.forEach(b => b.classList.remove('active'));
       if(btnEl) btnEl.classList.add('active');
 
-      // isi area
-      area.innerHTML = `
-        <h2>${escapeHtml(s.title)}</h2>
-        <p class="script">${escapeHtml(s.text)}</p>
-      `;
-      // scroll to area (smooth)
-      area.scrollIntoView({behavior:'smooth', block:'start'});
+      // render content (innerHTML because we intentionally include <p> and <b>)
+      // apply fade animation: remove then force reflow then add
+      const titleHTML = `<h2>${s.title}</h2>`;
+      const bodyHTML  = `<div class="script">${s.text}</div>`;
+
+      // remove existing fade class (if any)
+      naskahEl.classList.remove('fade-in');
+
+      // set innerHTML (replace)
+      naskahEl.innerHTML = titleHTML + bodyHTML;
+
+      // force reflow so animation restarts reliably
+      void naskahEl.offsetWidth;
+
+      // add fade-in
+      naskahEl.classList.add('fade-in');
+
+      // ensure focus for accessibility
+      naskahEl.focus?.();
+      // smooth scroll into view (mobile friendly)
+      naskahEl.scrollIntoView({behavior:'smooth', block:'start'});
     }
 
-    // attach events
-    btns.forEach(b=>{
-      b.addEventListener('click',()=> showNaskah(b.dataset.key, b));
+    // attach click events
+    btns.forEach(b => {
+      const key = b.dataset.key;
+      b.addEventListener('click', ()=> showNaskah(key, b));
     });
 
-    // utility to avoid accidental HTML injection
-    function escapeHtml(str){
-      return String(str)
-        .replaceAll('&','&amp;')
-        .replaceAll('<','&lt;')
-        .replaceAll('>','&gt;')
-        .replaceAll('"','&quot;')
-        .replaceAll("'",'&#39;')
-        .replaceAll('\n','\n');
-    }
-
-    // optional: show first by default
-    // showNaskah('kiko', document.querySelector('[data-key="kiko"]'));
+    // optional: show default first naskah on load
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const first = btns[0];
+      if(first) showNaskah(first.dataset.key, first);
+    });
   </script>
-</body>
-</html>            <span class="hobby">🔧 Coding</span>
-        </div>
-
-        <div class="social-links">
-            <a href="#" class="social-link">📷</a>
-            <a href="#" class="social-link">💬</a>
-            <a href="#" class="social-link">🐙</a>
-            <a href="#" class="social-link">📧</a>
-        </div>
-    </div>
 </body>
 </html>

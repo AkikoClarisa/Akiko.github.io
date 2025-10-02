@@ -143,7 +143,7 @@
       <button class="btn" data-key="kalila" aria-controls="naskah" role="tab">Naskah Kalila</button>
       <button class="btn" data-key="syifa" aria-controls="naskah" role="tab">Naskah Syifa</button>
       <button class="btn" data-key="nofa" aria-controls="naskah" role="tab">Naskah Nofa</button>
-      <button class="btn" data-key="lain" aria-controls="naskah" role="tab">Naskah Aylah</button>
+      <button class="btn" data-key="aylah" aria-controls="naskah" role="tab">Naskah Aylah</button>
     </div>
 
     <!-- area naskah tunggal -->
@@ -166,23 +166,31 @@
         text: `
 <p><b>Daaniys ❤️:</b> Hello, how are you?</p>
 
-<p><b>Kalila:</b> I’m good, thanks. And you?</p>
+<p><b>Kalila:</b> I'm good, thanks. And you?</p>
 
-<p><b>Syifa:</b> I’m fine too.</p>
+<p><b>Syifa:</b> I'm fine too.</p>
 
 <p><b>Nofa:</b> Nice to hear that!</p>`
       },
 
       kharis: {
-        title: "Naskah Kharis",
+        title: "Naskah Kharis - Olympic Vibes",
         text: `
-<p><b>Kharis:</b> What are we going to eat today?</p>
+<p><b>Kharis:</b> Guys, imagine if one of us joined the Olympics… I would probably be the gold medalist.</p>
 
-<p><b>Kalila:</b> Maybe some noodles?</p>
+<p><b>Kalila:</b> Gold medalist in sleeping maybe wkwkkwkw</p>
 
-<p><b>Syifa:</b> Sounds delicious!</p>
+<p><b>Syifa:</b> Hahaha true! But seriously, the Olympics are cool. It's not just about sports, it's like… the whole world coming together.</p>
 
-<p><b>Nofa:</b> Let’s go then!</p>`
+<p><b>Daaniys:</b> Yeah, and the motto is "Faster, Higher, Stronger Together." I only manage the "slower and sleepier" part tho. Wkwkwk</p>
+
+<p><b>Aylah:</b> Same here. But still, the Olympics inspire people. Even if we don't play sports, we can learn teamwork and discipline.</p>
+
+<p><b>Nova:</b> Right! And maybe one day, we'll be cheering each other like real fans. Who knows?</p>
+
+<p><b>Kharis:</b> Fine, fine… but when I win my gold medal in "eating competition," you all better support me.</p>
+
+<p><b>All (together):</b> Deal! Wkwkwk</p>`
       },
 
       kalila: {
@@ -220,7 +228,7 @@
         text: `
 <p><b>Aylah:</b> I love going to the cinema, it makes movies exciting.</p>
 
-<p><b>Daaniys ❤️:</b> I prefer watching at home, it’s cheaper.</p>
+<p><b>Daaniys ❤️:</b> I prefer watching at home, it's cheaper.</p>
 
 <p><b>Syifa:</b> I think the theater atmosphere is the best.</p>
 
@@ -231,16 +239,32 @@
 <p><b>Nofa:</b> Horror movies are scarier when everyone screams together.</p>`
       },
 
-      lain: {
-        title: "Naskah Aylah",
+      aylah: {
+        title: "Naskah Aylah - Weekend Plans",
         text: `
-<p><b>Kalila:</b> The sky looks beautiful today.</p>
+<p><b>Aylah:</b> Hey guys, are they free this Saturday?</p>
 
-<p><b>Syifa:</b> True, it’s so calming.</p>
+<p><b>Syifa:</b> Yeah, I'm free. What's up?</p>
 
-<p><b>Nofa:</b> Perfect weather for a walk.</p>
+<p><b>Kalila:</b> Don't say football again, bro.</p>
 
-<p><b>Daaniys ❤️:</b> Let’s go then!</p>`
+<p><b>Danis:</b> (laughs) Yeah, last time was a mess.</p>
+
+<p><b>Kharis:</b> How about that new café downtown?</p>
+
+<p><b>Nova:</b> Oh right, the one with music? Sounds fun.</p>
+
+<p><b>Aylah:</b> Yup, that's the one. Let's go there.</p>
+
+<p><b>Syifa:</b> Evening works for me, maybe 6?</p>
+
+<p><b>Danis:</b> 6 is fine.</p>
+
+<p><b>Kalila:</b> Same here, just don't be late, Aylah.</p>
+
+<p><b>Kharis:</b> (smiles) He's always late.</p>
+
+<p><b>Nova:</b> Okay, deal. Saturday, 6 PM at the café.</p>`
       }
     };
 
@@ -276,80 +300,6 @@
 
     // Tampilkan naskah pertama saat halaman dimuat
     document.addEventListener('DOMContentLoaded', () => {
-      const first = btns[0];
-      if(first) showNaskah(first.dataset.key, first);
-    });
-  </script>
-</body>
-</html>injection.</p>
-
-<p><b>Syifa:</b> I'll try it. As a patient, it doesn't seem to hurt. I'm used to it.</p>
-
-<p><b>Danis:</b> I agree with you. I'll take turns being your patient later.</p>
-
-<p><b>Aylah:</b> I agree with Syifa and Kalila. It's important to try it often to get used to the injection.</p>
-
-<p><b>Kharis:</b> But I disagree. The blood draw depends on the size of the syringe.</p>
-
-<p><b>Nova:</b> I agree with Kharis. Because if you're not used to injections, it can be very painful if the syringe is 5cc.</p>`
-      },
-
-      nofa: {
-        title: "Naskah Nofa",
-        text: `
-<p><b>Aylah:</b> I love going to the cinema, it makes movies exciting.</p>
-
-<p><b>Daaniys ❤️:</b> I prefer watching at home, it’s cheaper.</p>
-
-<p><b>Syifa:</b> I think the theater atmosphere is the best.</p>
-
-<p><b>Kharis:</b> Action movies are more thrilling there.</p>
-
-<p><b>Kalila:</b> Romantic films feel better in the dark room.</p>
-
-<p><b>Nofa:</b> Horror movies are scarier when everyone screams together.</p>
-      },
-
-      lain: {
-        title: "Naskah Aylah",
-        text: `
-<p><b>Kalila:</b> The sky looks beautiful today.</p>
-
-<p><b>Syifa:</b> True, it’s so calming.</p>
-
-<p><b>Nofa:</b> Perfect weather for a walk.</p>
-
-<p><b>Daaniys ❤️:</b> Let’s go then!</p>`
-      }
-    };
-
-    // DOM refs
-    const btns = Array.from(document.querySelectorAll('.btn'));
-    const naskahEl = document.getElementById('naskah');
-
-    function showNaskah(key, btnEl){
-      const s = scripts[key];
-      if(!s) return;
-
-      btns.forEach(b => b.classList.remove('active'));
-      if(btnEl) btnEl.classList.add('active');
-
-      const titleHTML = `<h2>${s.title}</h2>`;
-      const bodyHTML  = `<div class="script">${s.text}</div>`;
-
-      naskahEl.classList.remove('fade-in');
-      naskahEl.innerHTML = titleHTML + bodyHTML;
-      void naskahEl.offsetWidth;
-      naskahEl.classList.add('fade-in');
-      naskahEl.scrollIntoView({behavior:'smooth', block:'start'});
-    }
-
-    btns.forEach(b => {
-      const key = b.dataset.key;
-      b.addEventListener('click', ()=> showNaskah(key, b));
-    });
-
-    document.addEventListener('DOMContentLoaded', ()=>{
       const first = btns[0];
       if(first) showNaskah(first.dataset.key, first);
     });

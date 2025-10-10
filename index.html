@@ -7,11 +7,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg1: #f9d423;
-      --bg2: #ff4e50;
+      --bg1: #ffd1dc; /* Pink pastel */
+      --bg2: #a2d2ff; /* Biru pastel */
       --card: #ffffff;
       --muted: #444;
-      --accent: #ffd966;
+      --accent: #ffafcc; /* Pink lebih terang */
     }
     *{box-sizing:border-box}
     body{
@@ -24,11 +24,51 @@
       flex-direction:column;
       align-items:center;
       padding:28px 16px 60px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Floating hearts */
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      color: rgba(255, 105, 180, 0.4);
+      animation: float 8s infinite ease-in-out;
+      opacity: 0;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.4;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
     }
 
     .container{
       width:100%;
       max-width:980px;
+      position: relative;
+      z-index: 2;
     }
 
     header{
@@ -64,15 +104,54 @@
       font-weight:600;
       cursor:pointer;
       box-shadow: 0 8px 18px rgba(0,0,0,0.14);
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       text-align:center;
       font-size:15px;
+      position: relative;
+      overflow: hidden;
     }
-    .btn:hover{ transform: translateY(-4px); box-shadow:0 14px 30px rgba(0,0,0,0.16); }
+    .btn:hover{ 
+      transform: translateY(-4px); 
+      box-shadow:0 14px 30px rgba(0,0,0,0.16); 
+    }
     .btn.active{
       background: linear-gradient(90deg,#fff7d1,#ffecb3);
       transform: translateY(-6px) scale(1.02);
       box-shadow:0 18px 36px rgba(0,0,0,0.18);
+    }
+    
+    /* Efek ripple pada tombol */
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+    
+    .btn:focus:not(:active)::after {
+      animation: ripple 1s ease-out;
+    }
+    
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      20% {
+        transform: scale(25, 25);
+        opacity: 0.3;
+      }
+      100% {
+        transform: scale(40, 40);
+        opacity: 0;
+      }
     }
 
     /* kartu naskah */
@@ -83,6 +162,7 @@
       padding:22px;
       box-shadow: 0 18px 40px rgba(0,0,0,0.14);
       overflow:hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .naskah-card h2{
       margin:0 0 8px;
@@ -96,15 +176,29 @@
       font-size:16px;
       text-align:left;
     }
-    .script p{ margin: 0 0 12px; }
+    .script p{ 
+      margin: 0 0 12px; 
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
+    }
+    .script p:hover {
+      background-color: rgba(255, 215, 220, 0.3);
+    }
 
-    /* fade-in animation */
+    /* fade-in animation yang lebih smooth */
     .fade-in {
-      animation: fadeIn .38s ease both;
+      animation: fadeIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     }
     @keyframes fadeIn{
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
+      0% { 
+        opacity: 0; 
+        transform: translateY(20px) scale(0.95); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+      }
     }
 
     /* perkenalan Akiko */
@@ -115,10 +209,17 @@
       font-size:15px;
       font-weight:500;
       animation: idleGlow 3s ease-in-out infinite;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
     @keyframes idleGlow {
-      0%,100% { text-shadow: 0 0 4px rgba(255,255,255,0.6); transform: translateY(0); }
-      50% { text-shadow: 0 0 12px rgba(255,255,255,1); transform: translateY(-3px); }
+      0%,100% { 
+        text-shadow: 0 0 4px rgba(255,255,255,0.6); 
+        transform: translateY(0); 
+      }
+      50% { 
+        text-shadow: 0 0 12px rgba(255,255,255,1); 
+        transform: translateY(-3px); 
+      }
     }
 
     /* responsive */
@@ -131,16 +232,19 @@
   </style>
 </head>
 <body>
+  <!-- Floating hearts container -->
+  <div class="floating-hearts" id="hearts-container"></div>
+  
   <div class="container">
     <header>
-      <h1>📖 Kumpulan Naskah Bahasa Inggris</h1>
+      <h1> Kumpulan Naskah Bahasa Inggris</h1>
       <p class="lead">Klik tombol untuk menampilkan naskah. Nama sudah tebal (bold).</p>
     </header>
 
     <div class="buttons" role="tablist" aria-label="Pilihan naskah">
       <button class="btn" data-key="syifa" aria-controls="naskah" role="tab">Naskah Syifa</button>
       <button class="btn" data-key="aylah" aria-controls="naskah" role="tab">Naskah Aylah</button>
-      <button class="btn" data-key="daaniys" aria-controls="naskah" role="tab">Naskah Daaniys ❤️</button>
+      <button class="btn" data-key="daaniys" aria-controls="naskah" role="tab">Naskah Daaniys </button>
       <button class="btn" data-key="kalila" aria-controls="naskah" role="tab">Naskah Kalila</button>
       <button class="btn" data-key="kharis" aria-controls="naskah" role="tab">Naskah Kharis</button>
       <button class="btn" data-key="nofa" aria-controls="naskah" role="tab">Naskah Nofa</button>
@@ -154,109 +258,185 @@
 
     <!-- Perkenalan Akiko -->
     <div class="profile">
-      <p><b>Gw Akiko</b> — suka coding, bikin web, dan develop bot. 🚀</p>
+      <p><b>Gw Akiko</b> � suka coding, bikin web, dan develop bot. </p>
     </div>
   </div>
 
   <script>
-    // DATA: isi naskah
+    // DATA: isi naskah dengan dialog terbaru
     const scripts = {
       syifa: {
-        title: "Naskah Syifa",
+        title: "Naskah Syifa - Quiz Competition",
         text: `
-<p><b>Syifa:</b> Will the blood draw hurt? I think so.</p>
+<p><b>Syifa (excited, standing in front of the class):</b> Hi, guys, I just saw that there's a quiz competition for West Java. Does anyone want to sign up?</p>
 
-<p><b>Kalila:</b> I agree. It might hurt, but we'll get used to the injection.</p>
+<p><b>Kharis (smiling, nodding his head as he sits in his chair):</b> I want to join! I really like quiz competitions. I'm sure we can win.</p>
 
-<p><b>Syifa:</b> I'll try it. As a patient, it doesn't seem to hurt. I'm used to it.</p>
+<p><b>Kalila (sad, lowering his head, sitting in the corner):</b> I want to join the competition, but I'm not sure I can win. I'm not very smart, and I'm not confident.</p>
 
-<p><b>Danis:</b> I agree with you. I'll take turns being your patient later.</p>
+<p><b>Aylah (confident, standing up straight, putting her hand on Kalila's shoulder):</b> Don't hesitate, Kalila! I'm sure you can do it! Everyone has their own talents.</p>
 
-<p><b>Aylah:</b> I agree with Syifa and Kalila. It's important to try it often to get used to the injection.</p>
+<p><b>Danis (enthusiastic, getting up from his chair and jumping a little):</b> I've already registered. Come on, guys, join in! I'm really excited.</p>
 
-<p><b>Kharis:</b> But I disagree. The blood draw depends on the size of the syringe.</p>
+<p><b>Nova (curious, raising her hand):</b> What should we study to prepare? I'll try to find information on the internet.</p>
 
-<p><b>Nova:</b> I agree with Kharis. Because if you're not used to injections, it can be very painful if the syringe is 5cc.</p>`
+<p><b>Syifa (smiling, writing down the information she found):</b> Guys, I got the information! The quiz has three subjects: math, English, and Indonesian.</p>
+
+<p><b>Kharis (excited, giving a thumbs up):</b> I really like that subject! I'll look for more accurate information.</p>
+
+<p><b>Kalila (smiling slightly, nodding her head):</b> Thank you, Aylah. I feel more confident now. I'll give it a try.</p>
+
+<p><b>Aylah (smiling, holding Kalila's shoulder):</b> That's the spirit I like! I'm sure we can all win. We have to work together to support each other!</p>
+
+<p><b>Danis (enthusiastic, jumping up and down):</b> I've finished registering! I can't wait.</p>
+
+<p><b>Nova (curious, approaching Danis):</b> I want to register right now. It's very interesting!</p>
+
+<p><b>Syifa (smiling, nodding):</b> I'm ready too. I'm sure this is a good decision for us.</p>
+
+<p><b>Kharis (excited, standing):</b> I'm ready too, I can't wait.</p>
+
+<p><b>Kalila (smiling, raising her head):</b> I'm ready too, friends, I'm starting to feel confident. Thank you, friends!</p>
+
+<p><b>Aylah (smiling, holding Kalila's shoulder):</b> I know we can do it together! Let's support each other.</p>
+
+<p><b>Danis (enthusiastic, smiling, excited):</b> I can't wait to hear who the winner is! I'm sure this will be very exciting.</p>
+
+<p><b>Nova (curious, sitting next to Danis):</b> I'm ready to hear who the winner is! I'll make this a moment for us.</p>
+
+<p><b>Together (everyone):</b> Yeayy</p>`
       },
 
       aylah: {
-        title: "Naskah Aylah - Weekend Plans",
+        title: "Naskah Aylah - Tuesday Sports Plan",
         text: `
-<p><b>Aylah:</b> Hey guys, are they free this Saturday?</p>
+<p><b>Aylah:</b> Hey everyone, what should we do for sports on Tuesday? We always play volleyball, but I feel bored now.</p>
 
-<p><b>Syifa:</b> Yeah, I'm free. What's up?</p>
+<p><b>Danis:</b> Yeah, me too. And the volleyball field has many thorns now.</p>
 
-<p><b>Kalila:</b> Don't say football again, bro.</p>
+<p><b>Kalila:</b> That's true, it's hard to play there. My shoes even got stuck last time.</p>
 
-<p><b>Danis:</b> (laughs) Yeah, last time was a mess.</p>
+<p><b>Syifa:</b> So, how about we try something new? Maybe we can play badminton instead.</p>
 
-<p><b>Kharis:</b> How about that new café downtown?</p>
+<p><b>Kharis:</b> I like that idea! Badminton sounds fun and safe.</p>
 
-<p><b>Nova:</b> Oh right, the one with music? Sounds fun.</p>
+<p><b>Nofa:</b> Yes, and we don't have to worry about thorns. But where can we play?</p>
 
-<p><b>Aylah:</b> Yup, that's the one. Let's go there.</p>
+<p><b>Aylah:</b> Maybe we can go to the sports hall, the GOR. I heard it's open on Tuesdays.</p>
 
-<p><b>Syifa:</b> Evening works for me, maybe 6?</p>
+<p><b>Danis:</b> Do you know where the GOR is? I've never been there before.</p>
 
-<p><b>Danis:</b> 6 is fine.</p>
+<p><b>Kalila:</b> I think it's near the market. My cousin plays badminton there sometimes.</p>
 
-<p><b>Kalila:</b> Same here, just don't be late, Aylah.</p>
+<p><b>Syifa:</b> We can check it on Google Maps later. It will be easy to find.</p>
 
-<p><b>Kharis:</b> (smiles) He's always late.</p>
+<p><b>Kharis:</b> Let's bring our rackets and shuttlecocks. I still have mine at home.</p>
 
-<p><b>Nova:</b> Okay, deal. Saturday, 6 PM at the café.</p>`
+<p><b>Nofa:</b> Good! I'll bring extra water and snacks. We can rest after playing.</p>
+
+<p><b>Aylah:</b> So it's decided, we'll play badminton on Tuesday. No more volleyball for now.</p>
+
+<p><b>Danis:</b> I'm excited for something new. It will be more interesting.</p>
+
+<p><b>Kalila:</b> Let's meet in front of school at 7 am. We can go to the GOR together.</p>
+
+<p><b>Syifa:</b> Don't forget to wear sports shoes. The floor there can be slippery.</p>
+
+<p><b>Kharis:</b> Alright, I'll bring my sports bag. Can't wait for Tuesday!</p>
+
+<p><b>Nofa:</b> Same here, it will be fun. See you all on Tuesday!</p>`
       },
 
       daaniys: {
-        title: "Naskah Daaniys - Weekend Plans",
+        title: "Naskah Daaniys - More School Activities",
         text: `
-<p><b>Daaniys:</b> Hey everyone, what about going to the zoo this weekend?</p>
+<p><b>Daaniys:</b> I think our school should have more extracurricular activities.</p>
 
-<p><b>Kalila:</b> I agree! The zoo is fun and we can take nice pictures.</p>
+<p><b>Kalila:</b> I agree! It would be fun and help us find our talents.</p>
 
-<p><b>Syifa:</b> I don't agree. I think zoos are boring and a little expensive.</p>
+<p><b>Syifa:</b> I disagree. We already have a lot of activities after school.</p>
 
-<p><b>Nofa:</b> I see your point, Syifa but I agree with Kalila. At the zoo we can also learn about animals.</p>
+<p><b>Kharis:</b> But some students don't join any activities. They need more choices.</p>
 
-<p><b>Kharis:</b> Honestly, I disagree too. I prefer going to the cinema. It's more comfortable.</p>
+<p><b>Aylah:</b> I agree with Sinta. More clubs mean more chances to learn new things.</p>
 
-<p><b>Aylah:</b> I don't think so, Kharis. I agree with Daaniys. The zoo is better because it's outdoors and healthy.</p>
+<p><b>Nofa:</b> I don't think so. Too many activities can make us tired.</p>
 
-<p><b>Daaniys:</b> Okay, how about this: on Saturday we go to the zoo, and on Sunday we go to the cinema?</p>
+<p><b>Daaniys:</b> Maybe we can have activities only once a week.</p>
 
-<p><b>Syifa:</b> Hmm… I don't really agree, but I think it's fair.</p>
+<p><b>Kalila:</b> Yes, that sounds fair! Not too busy, not too boring.</p>
 
-<p><b>Kalila:</b> Yes, I agree with that plan.</p>`
+<p><b>Syifa:</b> Hmm, maybe that's okay. As long as it doesn't affect our study time.</p>
+
+<p><b>Kharis:</b> We can also make it optional, so only those who want can join.</p>
+
+<p><b>Aylah:</b> Good idea! That way, everyone is happy.</p>
+
+<p><b>Nofa:</b> Okay, I can agree with that. It sounds balanced.</p>
+
+<p><b>Daaniys:</b> So, we all agree to have one activity day every week?</p>
+
+<p><b>Kalila:</b> Yes, maybe Friday after class would be perfect.</p>
+
+<p><b>Syifa:</b> That's fine with me. Not too late, and we still have time to rest.</p>
+
+<p><b>Kharis:</b> Great! I'll tell our teacher about this idea.</p>
+
+<p><b>Aylah:</b> I can't wait to join a new club!</p>
+
+<p><b>Nofa:</b> Let's make our school more exciting!</p>`
       },
 
       kalila: {
-        title: "Naskah Kalila - Weekend Dinner Plans",
+        title: "Naskah Kalila - Class Decoration Plan",
         text: `
-<p><b>Kalila:</b> Do you agree if we eat at my house on Saturday?</p>
+<p><b>Kalila (enthusiastic, cheerful):</b> Guys, I suddenly had an idea. How about we decorate the classroom?</p>
 
-<p><b>Syifa:</b> I agree if you want to on Saturday.</p>
+<p><b>Kharis (agreeable, calm, enthusiastic):</b> Good idea. So we can change the atmosphere of the classroom too, making it even nicer.</p>
 
-<p><b>Aylah:</b> Yes, I agree, it seems like it will be fun.</p>
+<p><b>Daaniys (relaxed, humorous):</b> Hmm, that's good. I agree, as long as we use class money, haha</p>
 
-<p><b>Daaniys:</b> I disagree because I have an event on Saturday too.</p>
+<p><b>Kalila (cheerful):</b> Okay, we'll just use class money. Don't worry, there are plenty of them, guys</p>
 
-<p><b>Kharis:</b> I also disagree because I have to take my mom to the market.</p>
+<p><b>Syifa (serious, concerned):</b> Sorry guys, I disagree. We have exams next week, and it'll distract us</p>
 
-<p><b>Nofa:</b> Okay, then let's change it to Sunday afternoon.</p>
+<p><b>Aylah (supportive of Syifa):</b> Yes, Syifa is right. It's better if we use our free time to study again</p>
 
-<p><b>Kalila:</b> Good idea, what do you think, guys?</p>
+<p><b>Nofa (cheerful):</b> I don't think it's a bother, because we can still study at home</p>
 
-<p><b>All:</b> Agreed.</p>`
+<p><b>Kharis (agreeable, calm, enthusiastic):</b> Yes, we can decorate it simply, for example, by putting up posters.</p>
+
+<p><b>Daaniys (relaxed):</b> Yeah, I'll do whatever. If everyone wants to, I'll join. If not, I'll join too.</p>
+
+<p><b>Syifa (serious):</b> Hmm, but guys, we already have a lot of posters in class, where else are we going to put them?</p>
+
+<p><b>Aylah (cheerful):</b> Yes, that's right. Should we just throw away the decorations that aren't looking good and replace them?</p>
+
+<p><b>Nofa (cheerful):</b> Yes, that's it. Let's make some nice posters for our class.</p>
+
+<p><b>Kalila (ask casually):</b> Okay, so when are we going to start decorating? But does Syifa agree?</p>
+
+<p><b>Syifa (relaxed):</b> Yes, I agree. I'll go with you guys.</p>
+
+<p><b>Kharis (enthusiastic, cheerful):</b> Okay, how about we start tomorrow? So we don't have to wait until the exams, guys.</p>
+
+<p><b>Aylah (enthusiastic, cheerful):</b> Agreed, agreed. By the way, what are we making a poster about?</p>
+
+<p><b>Daaniys (serious):</b> I guess we'll just talk about making the poster tomorrow, guys, because it's time to go home now</p>
+
+<p><b>Nofa (cheerful):</b> Yes, let's make it fun to talk, see if it's already time to go home, it's already past</p>
+
+<p><b>All:</b> hahahah</p>`
       },
 
       kharis: {
         title: "Naskah Kharis - <em>Olympic Vibes</em>",
         text: `
-<p><b>Kharis:</b> Guys, imagine if one of us joined the Olympics… I would probably be the gold medalist.</p>
+<p><b>Kharis:</b> Guys, imagine if one of us joined the Olympics� I would probably be the gold medalist.</p>
 
 <p><b>Kalila:</b> Gold medalist in sleeping maybe wkwkkwkw</p>
 
-<p><b>Syifa:</b> Hahaha true! But seriously, the Olympics are cool. It's like… the whole world coming together.</p>
+<p><b>Syifa:</b> Hahaha true! But seriously, the Olympics are cool. It's like� the whole world coming together.</p>
 
 <p><b>Daaniys:</b> Yeah, and the motto is "Faster, Higher, Stronger Together." I only manage the "slower and sleepier" part tho. Wkwkwk</p>
 
@@ -264,37 +444,80 @@
 
 <p><b>Nova:</b> Right! And maybe one day, we'll be cheering each other like real fans. Who knows?</p>
 
-<p><b>Kharis:</b> Fine, fine… but when I win my gold medal in "eating competition," you all better support me.</p>
+<p><b>Kharis:</b> Fine, fine� but when I win my gold medal in "eating competition," you all better support me.</p>
 
 <p><b>All (together):</b> Deal! Wkwkwk</p>`
       },
 
       nofa: {
-        title: "Naskah Nofa - Group Project at School",
+        title: "Naskah Nofa - Talking About Swimming",
         text: `
-<p><b>Nofa:</b> Guys, let's make a poster for our project.</p>
+<p><b>Nofa (smiling):</b> Hi everyone! I think swimming is very fun. Do you agree?</p>
 
-<p><b>Aylah:</b> I agree! Making a poster sounds easy and fun.</p>
+<p><b>Aylah (excited):</b> Yes, I agree! I love swimming. It makes me strong and happy!</p>
 
-<p><b>Kharis:</b> I don't think so. I prefer making a short video.</p>
+<p><b>Kharis (shaking head):</b> I don't agree. Swimming makes me tired and cold.</p>
 
-<p><b>Cipa:</b> Hmm… I agree with Aylah. A poster is faster to finish.</p>
+<p><b>Cipa (calm):</b> But swimming is good for health, Kharis.</p>
 
-<p><b>Kalila:</b> I disagree with both. I think a slideshow looks better for presentation.</p>
+<p><b>Kalila (serious):</b> That's right. Swimming is an important skill.</p>
 
-<p><b>Daaniys:</b> I see your points, but I agree with Kalila. A slideshow looks more creative.</p>
+<p><b>Daaniys (joking):</b> Haha! I fell into a pool last year. I really need to learn!</p>
 
-<p><b>Nofa:</b> Okay, how about this — we make a poster and a short slideshow?</p>
+<p><b>Nofa (laughing):</b> See? You must practice more, Daaniys!</p>
 
-<p><b>Kharis:</b> Yeah, that's fine. I agree with that idea.</p>
+<p><b>Aylah (smiling):</b> Yes! If you swim a lot, you won't be scared.</p>
 
-<p><b>Kalila:</b> Same here. That's a good plan.</p>`
+<p><b>Kharis (thinking):</b> Hmm... maybe I can try again.</p>
+
+<p><b>Cipa (calm):</b> Don't worry, we can help you.</p>
+
+<p><b>Kalila (serious):</b> Remember to warm up before swimming.</p>
+
+<p><b>Daaniys (grinning):</b> Or I just float and relax, that's my style!</p>
+
+<p><b>Nofa (cheerful):</b> Let's go swimming this weekend!</p>
+
+<p><b>Aylah (happy):</b> Yes! Let's go together!</p>
+
+<p><b>Kharis (smiling):</b> Okay, I'll join you all.</p>
+
+<p><b>Cipa (calm):</b> Great! It will be fun.</p>
+
+<p><b>Kalila (nodding):</b> Good idea! Let's do it.</p>
+
+<p><b>Daaniys (playfully):</b> Last one to jump in buys ice cream!</p>`
       }
     };
 
     // DOM refs
     const btns = Array.from(document.querySelectorAll('.btn'));
     const naskahEl = document.getElementById('naskah');
+    const heartsContainer = document.getElementById('hearts-container');
+
+    // Fungsi untuk membuat floating hearts
+    function createFloatingHearts() {
+      const heartCount = 15;
+      
+      for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '';
+        
+        // Random properties
+        const left = Math.random() * 100;
+        const delay = Math.random() * 8;
+        const duration = 8 + Math.random() * 4;
+        const size = 16 + Math.random() * 16;
+        
+        heart.style.left = `${left}%`;
+        heart.style.animationDelay = `${delay}s`;
+        heart.style.animationDuration = `${duration}s`;
+        heart.style.fontSize = `${size}px`;
+        
+        heartsContainer.appendChild(heart);
+      }
+    }
 
     function showNaskah(key, btnEl){
       const s = scripts[key];
@@ -324,6 +547,7 @@
 
     // Tampilkan naskah pertama saat halaman dimuat
     document.addEventListener('DOMContentLoaded', () => {
+      createFloatingHearts();
       const first = btns[0];
       if(first) showNaskah(first.dataset.key, first);
     });
